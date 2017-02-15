@@ -59,6 +59,9 @@
               <Properties>
                 <Property name="text" type="java.lang.String" value="Fusionner les fichiers"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="MergePDFActionPerformed"/>
+              </Events>
             </MenuItem>
           </SubComponents>
         </Menu>

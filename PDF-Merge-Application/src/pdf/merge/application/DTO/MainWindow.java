@@ -7,6 +7,7 @@
 package pdf.merge.application.DTO;
 
 import pdf.merge.application.BLL.FileFinder;
+import pdf.merge.application.BLL.MergedFile;
 
 import javax.swing.JFrame;
 import javax.swing.JTextArea;
@@ -24,6 +25,7 @@ public class MainWindow extends javax.swing.JFrame {
     private String noFolderSelectedMessage = "Aucun dossier n'a été sélectionné";
     
     private File[] fileList;
+    private String absolutePath;
     
     /**
      * Creates new form mainWindow
@@ -101,6 +103,11 @@ public class MainWindow extends javax.swing.JFrame {
         Editer.setText(" Editer");
 
         MergePDF.setText("Fusionner les fichiers");
+        MergePDF.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                MergePDFActionPerformed(evt);
+            }
+        });
         Editer.add(MergePDF);
 
         jMenuBar1.add(Editer);
@@ -135,6 +142,17 @@ public class MainWindow extends javax.swing.JFrame {
     private void ExitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ExitActionPerformed
         System.exit(0);
     }//GEN-LAST:event_ExitActionPerformed
+
+    private void MergePDFActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MergePDFActionPerformed
+        try {
+            MergedFile newPDF = new MergedFile(absolutePath, fileList);
+            newPDF.mergeFiles();
+        } catch (Exception e) {
+            System.out.println("Impossible de fusionner les PDF avec l'erreur : " + e);
+        }
+        
+        MergedPDFWindow newPDFWindow = new MergedPDFWindow();
+    }//GEN-LAST:event_MergePDFActionPerformed
     
     private void getFileList() {
         FileFinder finder = new FileFinder();
@@ -149,8 +167,8 @@ public class MainWindow extends javax.swing.JFrame {
         
         if (chooser.showOpenDialog(null) == JFileChooser.APPROVE_OPTION) {
             System.out.println("getSelectedFile() : " + chooser.getSelectedFile());
-            String pathToFolder = chooser.getSelectedFile().getAbsolutePath();
-            fileList = FileFinder.find(pathToFolder);
+            absolutePath = chooser.getSelectedFile().getAbsolutePath();
+            fileList = FileFinder.find(absolutePath);
             printFileNames(fileList);
         } else {
             listContainer.setText("");
