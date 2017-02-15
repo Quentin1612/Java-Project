@@ -8,7 +8,7 @@ package pdf.merge.application;
 import pdf.merge.application.DTO.MainWindow;
 
 /**
- *
+ * 
  * @author Quentin
  */
 public class PDFMergeApplication {
