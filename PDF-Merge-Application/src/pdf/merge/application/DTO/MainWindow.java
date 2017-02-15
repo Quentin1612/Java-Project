@@ -46,12 +46,26 @@ public class MainWindow extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jMenuBar2 = new javax.swing.JMenuBar();
+        jMenu2 = new javax.swing.JMenu();
+        jMenu3 = new javax.swing.JMenu();
+        jMenuItem1 = new javax.swing.JMenuItem();
         jScrollPane1 = new javax.swing.JScrollPane();
         listContainer = new javax.swing.JTextArea();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         OpenFolder = new javax.swing.JMenuItem();
         Exit = new javax.swing.JMenuItem();
+        Editer = new javax.swing.JMenu();
+        MergePDF = new javax.swing.JMenuItem();
+
+        jMenu2.setText("File");
+        jMenuBar2.add(jMenu2);
+
+        jMenu3.setText("Edit");
+        jMenuBar2.add(jMenu3);
+
+        jMenuItem1.setText("jMenuItem1");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setResizable(false);
@@ -83,6 +97,13 @@ public class MainWindow extends javax.swing.JFrame {
         jMenu1.add(Exit);
 
         jMenuBar1.add(jMenu1);
+
+        Editer.setText(" Editer");
+
+        MergePDF.setText("Fusionner les fichiers");
+        Editer.add(MergePDF);
+
+        jMenuBar1.add(Editer);
 
         setJMenuBar(jMenuBar1);
 
@@ -184,10 +205,16 @@ public class MainWindow extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JMenu Editer;
     private javax.swing.JMenuItem Exit;
+    private javax.swing.JMenuItem MergePDF;
     private javax.swing.JMenuItem OpenFolder;
     private javax.swing.JMenu jMenu1;
+    private javax.swing.JMenu jMenu2;
+    private javax.swing.JMenu jMenu3;
     private javax.swing.JMenuBar jMenuBar1;
+    private javax.swing.JMenuBar jMenuBar2;
+    private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTextArea listContainer;
     // End of variables declaration//GEN-END:variables
