@@ -5,7 +5,7 @@
  */
 package pdf.merge.application;
 
-import pdf.merge.application.DTO.mainWindow;
+import pdf.merge.application.DTO.MainWindow;
 
 /**
  *
@@ -17,7 +17,7 @@ public class PDFMergeApplication {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-       mainWindow fenetre = new mainWindow();
+       MainWindow fenetre = new MainWindow();
     }
     
 }
