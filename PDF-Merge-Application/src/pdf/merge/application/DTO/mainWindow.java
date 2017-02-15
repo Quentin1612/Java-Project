@@ -6,23 +6,27 @@
 package pdf.merge.application.DTO;
 
 import javax.swing.JFrame;
+import javax.swing.JFileChooser;
 
 /**
  *
  * @author Quentin
  */
 public class mainWindow extends javax.swing.JFrame {
-
+    
+    private String windowTitle = "Outil d'édition de PDF";
+    private String chooserDialogTitle = "Sélectionnez un dossier";
+    
     /**
      * Creates new form mainWindow
      */
     public mainWindow() {
-        this.setTitle("Outil d'édition de PDF");
-        this.setSize(400, 200);
+        initComponents();
+        this.setTitle(windowTitle);
+        this.setSize(1000, 750);
         this.setLocationRelativeTo(null);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);             
         this.setVisible(true);
-        initComponents();
     }
 
     /**
@@ -78,7 +82,18 @@ public class mainWindow extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void OpenFolderActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_OpenFolderActionPerformed
-        // TODO add your handling code here:
+        JFileChooser chooser = new JFileChooser();
+        chooser.setCurrentDirectory(new java.io.File("Desktop"));
+        chooser.setDialogTitle(chooserDialogTitle);
+        chooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
+        chooser.setAcceptAllFileFilterUsed(false);
+        
+        if (chooser.showOpenDialog(null) == JFileChooser.APPROVE_OPTION) {
+            System.out.println("getCurrentDirectory(): " + chooser.getCurrentDirectory());
+            System.out.println("getSelectedFile() : " + chooser.getSelectedFile());
+        } else {
+            System.out.println("No Selection ");
+        }
     }//GEN-LAST:event_OpenFolderActionPerformed
 
     private void ExitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ExitActionPerformed
