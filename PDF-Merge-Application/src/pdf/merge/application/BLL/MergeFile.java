@@ -27,7 +27,9 @@ public class MergeFile {
             PDFmerger.addSource(absolutePath + "\\" + fileList[i].getName());
         }
         
-        givenName += ".pdf";
+        if(!givenName.endsWith(".pdf")) {
+            givenName += ".pdf";
+        }
         
         File directory = new File("DossierBilans");
         if(!directory.exists()) {
