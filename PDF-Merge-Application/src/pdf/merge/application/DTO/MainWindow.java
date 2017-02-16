@@ -7,12 +7,13 @@
 package pdf.merge.application.DTO;
 
 import pdf.merge.application.BLL.FileFinder;
-import pdf.merge.application.BLL.MergedFile;
+import pdf.merge.application.BLL.MergeFile;
 
 import javax.swing.JFrame;
 import javax.swing.JTextArea;
 import javax.swing.JFileChooser;
 import java.io.File;
+import java.io.FileNotFoundException;
 
 /**
  *
@@ -36,6 +37,7 @@ public class MainWindow extends javax.swing.JFrame {
         this.setSize(750, 500);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setLocationRelativeTo(null);
+        Editer.setEnabled(false);
         this.setVisible(true);
     }
 
@@ -52,16 +54,18 @@ public class MainWindow extends javax.swing.JFrame {
         jMenu2 = new javax.swing.JMenu();
         jMenu3 = new javax.swing.JMenu();
         jMenuItem1 = new javax.swing.JMenuItem();
+        jMenuItem2 = new javax.swing.JMenuItem();
+        jPopupMenu1 = new javax.swing.JPopupMenu();
         jScrollPane1 = new javax.swing.JScrollPane();
         listContainer = new javax.swing.JTextArea();
-        recentPDFPanel = new javax.swing.JPanel();
-        panelContainerTitle = new java.awt.Label();
         jMenuBar1 = new javax.swing.JMenuBar();
-        jMenu1 = new javax.swing.JMenu();
+        Preferences = new javax.swing.JMenu();
         OpenFolder = new javax.swing.JMenuItem();
+        jMenuItem3 = new javax.swing.JMenuItem();
         Exit = new javax.swing.JMenuItem();
         Editer = new javax.swing.JMenu();
         MergePDF = new javax.swing.JMenuItem();
+        Aide = new javax.swing.JMenu();
 
         jMenu2.setText("File");
         jMenuBar2.add(jMenu2);
@@ -70,6 +74,8 @@ public class MainWindow extends javax.swing.JFrame {
         jMenuBar2.add(jMenu3);
 
         jMenuItem1.setText("jMenuItem1");
+
+        jMenuItem2.setText("jMenuItem2");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setResizable(false);
@@ -82,28 +88,7 @@ public class MainWindow extends javax.swing.JFrame {
         listContainer.setMargin(new java.awt.Insets(10, 10, 10, 10));
         jScrollPane1.setViewportView(listContainer);
 
-        recentPDFPanel.setFocusable(false);
-
-        panelContainerTitle.setAlignment(java.awt.Label.CENTER);
-        panelContainerTitle.setText("Mes fichiers récents");
-
-        javax.swing.GroupLayout recentPDFPanelLayout = new javax.swing.GroupLayout(recentPDFPanel);
-        recentPDFPanel.setLayout(recentPDFPanelLayout);
-        recentPDFPanelLayout.setHorizontalGroup(
-            recentPDFPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, recentPDFPanelLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(panelContainerTitle, javax.swing.GroupLayout.DEFAULT_SIZE, 124, Short.MAX_VALUE)
-                .addContainerGap())
-        );
-        recentPDFPanelLayout.setVerticalGroup(
-            recentPDFPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(recentPDFPanelLayout.createSequentialGroup()
-                .addComponent(panelContainerTitle, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
-        );
-
-        jMenu1.setText("Fichier");
+        Preferences.setText("Fichier");
 
         OpenFolder.setText("Ouvrir un dossier");
         OpenFolder.addActionListener(new java.awt.event.ActionListener() {
@@ -111,7 +96,10 @@ public class MainWindow extends javax.swing.JFrame {
                 OpenFolderActionPerformed(evt);
             }
         });
-        jMenu1.add(OpenFolder);
+        Preferences.add(OpenFolder);
+
+        jMenuItem3.setText("Préférences");
+        Preferences.add(jMenuItem3);
 
         Exit.setText("Quitter");
         Exit.addActionListener(new java.awt.event.ActionListener() {
@@ -119,9 +107,9 @@ public class MainWindow extends javax.swing.JFrame {
                 ExitActionPerformed(evt);
             }
         });
-        jMenu1.add(Exit);
+        Preferences.add(Exit);
 
-        jMenuBar1.add(jMenu1);
+        jMenuBar1.add(Preferences);
 
         Editer.setText(" Editer");
 
@@ -135,6 +123,9 @@ public class MainWindow extends javax.swing.JFrame {
 
         jMenuBar1.add(Editer);
 
+        Aide.setText("Aide");
+        jMenuBar1.add(Aide);
+
         setJMenuBar(jMenuBar1);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -143,18 +134,14 @@ public class MainWindow extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 218, Short.MAX_VALUE)
-                .addGap(18, 18, 18)
-                .addComponent(recentPDFPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 380, Short.MAX_VALUE)
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(recentPDFPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 257, Short.MAX_VALUE))
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 257, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -163,7 +150,6 @@ public class MainWindow extends javax.swing.JFrame {
 
     private void OpenFolderActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_OpenFolderActionPerformed
         displayBrowserWindow();
-        getFileList();
     }//GEN-LAST:event_OpenFolderActionPerformed
 
     private void ExitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ExitActionPerformed
@@ -172,8 +158,7 @@ public class MainWindow extends javax.swing.JFrame {
 
     private void MergePDFActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MergePDFActionPerformed
         try {
-            MergedFile newPDF = new MergedFile(absolutePath, fileList);
-            newPDF.mergeFiles();
+            PDFNamePopUp namePopUp = new PDFNamePopUp(absolutePath, fileList);
         } catch (Exception e) {
             System.out.println("Impossible de fusionner les PDF avec l'erreur : " + e);
         }
@@ -195,6 +180,7 @@ public class MainWindow extends javax.swing.JFrame {
             absolutePath = chooser.getSelectedFile().getAbsolutePath();
             fileList = FileFinder.find(absolutePath);
             printFileNames(fileList);
+            Editer.setEnabled(true);
         } else {
             listContainer.setText("");
             listContainer.append(noFolderSelectedMessage);
@@ -248,19 +234,21 @@ public class MainWindow extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JMenu Aide;
     private javax.swing.JMenu Editer;
     private javax.swing.JMenuItem Exit;
     private javax.swing.JMenuItem MergePDF;
     private javax.swing.JMenuItem OpenFolder;
-    private javax.swing.JMenu jMenu1;
+    private javax.swing.JMenu Preferences;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenu jMenu3;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuBar jMenuBar2;
     private javax.swing.JMenuItem jMenuItem1;
+    private javax.swing.JMenuItem jMenuItem2;
+    private javax.swing.JMenuItem jMenuItem3;
+    private javax.swing.JPopupMenu jPopupMenu1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTextArea listContainer;
-    private java.awt.Label panelContainerTitle;
-    private javax.swing.JPanel recentPDFPanel;
     // End of variables declaration//GEN-END:variables
 }

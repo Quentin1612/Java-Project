@@ -19,48 +19,22 @@ import java.awt.Desktop;
  *
  * @author Quentin
  */
-public class MergedFile {
-    private String absolutePath;
-    private File[] fileList;
-    
-    public String getAbsolutePath() {
-        return this.absolutePath;
-    }
-    
-    public void setAbsolutePath(String AbsolutePath) {
-        this.absolutePath = AbsolutePath;
-    }
-    
-    public File[] getFileList() {
-        return fileList;
-    }
-    
-    public void setFileList(File[] FileList) {
-        this.fileList = FileList;
-    }
-    
-    public MergedFile(String absolutePath, File[] fileList) throws FileNotFoundException, IOException {
-        setAbsolutePath(absolutePath);
-        setFileList(fileList);
-    }
-    
-    public void mergeFiles() throws FileNotFoundException, IOException {
+public class MergeFile {    
+    public void mergeFiles(String absolutePath, String givenName, File[] fileList) throws FileNotFoundException, IOException {
         PDFMergerUtility PDFmerger = new PDFMergerUtility();
         for(int i = 0; i < fileList.length; i++) {
             System.out.println(absolutePath + "\\" + fileList[i].getName());
             PDFmerger.addSource(absolutePath + "\\" + fileList[i].getName());
         }
         
-        DateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
-        Date date = new Date();
-        String newFilePath = "Bilan du " + dateFormat.format(date) + ".pdf";
+        givenName += ".pdf";
         
         File directory = new File("DossierBilans");
         if(!directory.exists()) {
             directory.mkdir();
         }
         
-        newFilePath = "DossierBilans/" + newFilePath;           
+        String newFilePath = "DossierBilans/" + givenName;           
         PDFmerger.setDestinationFileName(newFilePath);
         PDFmerger.mergeDocuments(MemoryUsageSetting.setupMainMemoryOnly());
         
