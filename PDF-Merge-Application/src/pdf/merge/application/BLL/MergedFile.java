@@ -13,8 +13,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import org.apache.pdfbox.io.MemoryUsageSetting;
 import org.apache.pdfbox.multipdf.PDFMergerUtility;
-import org.apache.pdfbox.pdmodel.PDDocument;
-import org.apache.pdfbox.pdmodel.PDPage;
+import java.awt.Desktop;
 
 /**
  *
@@ -64,5 +63,18 @@ public class MergedFile {
         newFilePath = "DossierBilans/" + newFilePath;           
         PDFmerger.setDestinationFileName(newFilePath);
         PDFmerger.mergeDocuments(MemoryUsageSetting.setupMainMemoryOnly());
+        
+        loadFile(newFilePath);
+    }
+    
+    public void loadFile(String lastPDFCreated) throws IOException {
+        if (Desktop.isDesktopSupported()) {
+            final Desktop desktop = Desktop.getDesktop();
+            try {
+                Desktop.getDesktop().open(new File(lastPDFCreated));
+            } catch (Exception e) {
+                System.out.println("Impossible d'ouvrir le fichier avec l'erreur : " + e);
+            }
+        }
     }
 }
