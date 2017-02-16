@@ -61,7 +61,7 @@ public class MainWindow extends javax.swing.JFrame {
         jMenuBar1 = new javax.swing.JMenuBar();
         Preferences = new javax.swing.JMenu();
         OpenFolder = new javax.swing.JMenuItem();
-        jMenuItem3 = new javax.swing.JMenuItem();
+        Settings = new javax.swing.JMenuItem();
         Exit = new javax.swing.JMenuItem();
         Editer = new javax.swing.JMenu();
         MergePDF = new javax.swing.JMenuItem();
@@ -97,9 +97,15 @@ public class MainWindow extends javax.swing.JFrame {
             }
         });
         Preferences.add(OpenFolder);
+        OpenFolder.getAccessibleContext().setAccessibleDescription("");
 
-        jMenuItem3.setText("Préférences");
-        Preferences.add(jMenuItem3);
+        Settings.setText("Settings");
+        Settings.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                SettingsActionPerformed(evt);
+            }
+        });
+        Preferences.add(Settings);
 
         Exit.setText("Quitter");
         Exit.addActionListener(new java.awt.event.ActionListener() {
@@ -124,6 +130,11 @@ public class MainWindow extends javax.swing.JFrame {
         jMenuBar1.add(Editer);
 
         Aide.setText("Aide");
+        Aide.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                AideActionPerformed(evt);
+            }
+        });
         jMenuBar1.add(Aide);
 
         setJMenuBar(jMenuBar1);
@@ -163,10 +174,14 @@ public class MainWindow extends javax.swing.JFrame {
             System.out.println("Impossible de fusionner les PDF avec l'erreur : " + e);
         }
     }//GEN-LAST:event_MergePDFActionPerformed
-    
-    private void getFileList() {
-        FileFinder finder = new FileFinder();
-    }
+
+    private void AideActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AideActionPerformed
+        
+    }//GEN-LAST:event_AideActionPerformed
+
+    private void SettingsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SettingsActionPerformed
+        SettingsWindow settings = new SettingsWindow();
+    }//GEN-LAST:event_SettingsActionPerformed
     
     private void displayBrowserWindow() {
         JFileChooser chooser = new JFileChooser();
@@ -176,7 +191,6 @@ public class MainWindow extends javax.swing.JFrame {
         chooser.setAcceptAllFileFilterUsed(false);
         
         if (chooser.showOpenDialog(null) == JFileChooser.APPROVE_OPTION) {
-            System.out.println("getSelectedFile() : " + chooser.getSelectedFile());
             absolutePath = chooser.getSelectedFile().getAbsolutePath();
             fileList = FileFinder.find(absolutePath);
             printFileNames(fileList);
@@ -240,13 +254,13 @@ public class MainWindow extends javax.swing.JFrame {
     private javax.swing.JMenuItem MergePDF;
     private javax.swing.JMenuItem OpenFolder;
     private javax.swing.JMenu Preferences;
+    private javax.swing.JMenuItem Settings;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenu jMenu3;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuBar jMenuBar2;
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem2;
-    private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JPopupMenu jPopupMenu1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTextArea listContainer;
