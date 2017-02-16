@@ -54,6 +54,8 @@ public class MainWindow extends javax.swing.JFrame {
         jMenuItem1 = new javax.swing.JMenuItem();
         jScrollPane1 = new javax.swing.JScrollPane();
         listContainer = new javax.swing.JTextArea();
+        recentPDFPanel = new javax.swing.JPanel();
+        panelContainerTitle = new java.awt.Label();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         OpenFolder = new javax.swing.JMenuItem();
@@ -79,6 +81,27 @@ public class MainWindow extends javax.swing.JFrame {
         listContainer.setFocusable(false);
         listContainer.setMargin(new java.awt.Insets(10, 10, 10, 10));
         jScrollPane1.setViewportView(listContainer);
+
+        recentPDFPanel.setFocusable(false);
+
+        panelContainerTitle.setAlignment(java.awt.Label.CENTER);
+        panelContainerTitle.setText("Mes fichiers récents");
+
+        javax.swing.GroupLayout recentPDFPanelLayout = new javax.swing.GroupLayout(recentPDFPanel);
+        recentPDFPanel.setLayout(recentPDFPanelLayout);
+        recentPDFPanelLayout.setHorizontalGroup(
+            recentPDFPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, recentPDFPanelLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(panelContainerTitle, javax.swing.GroupLayout.DEFAULT_SIZE, 124, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+        recentPDFPanelLayout.setVerticalGroup(
+            recentPDFPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(recentPDFPanelLayout.createSequentialGroup()
+                .addComponent(panelContainerTitle, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
+        );
 
         jMenu1.setText("Fichier");
 
@@ -118,16 +141,20 @@ public class MainWindow extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+            .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 380, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 218, Short.MAX_VALUE)
+                .addGap(18, 18, 18)
+                .addComponent(recentPDFPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 257, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(recentPDFPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 257, Short.MAX_VALUE))
                 .addContainerGap())
         );
 
@@ -150,8 +177,6 @@ public class MainWindow extends javax.swing.JFrame {
         } catch (Exception e) {
             System.out.println("Impossible de fusionner les PDF avec l'erreur : " + e);
         }
-        
-        MergedPDFWindow newPDFWindow = new MergedPDFWindow();
     }//GEN-LAST:event_MergePDFActionPerformed
     
     private void getFileList() {
@@ -235,5 +260,7 @@ public class MainWindow extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTextArea listContainer;
+    private java.awt.Label panelContainerTitle;
+    private javax.swing.JPanel recentPDFPanel;
     // End of variables declaration//GEN-END:variables
 }

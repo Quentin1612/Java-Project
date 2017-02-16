@@ -11,6 +11,7 @@ import java.io.File;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import org.apache.pdfbox.io.MemoryUsageSetting;
 import org.apache.pdfbox.multipdf.PDFMergerUtility;
 import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.pdmodel.PDPage;
@@ -51,24 +52,17 @@ public class MergedFile {
             PDFmerger.addSource(absolutePath + "\\" + fileList[i].getName());
         }
         
-        DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+        DateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
         Date date = new Date();
-        String newFileName = "Bilan du " + dateFormat.format(date);
+        String newFilePath = "Bilan du " + dateFormat.format(date) + ".pdf";
         
-        File directory = new File("../DossierBilans");
+        File directory = new File("DossierBilans");
         if(!directory.exists()) {
-            try {
-                directory.mkdir();
-                PDDocument doc = new PDDocument();
-                doc.addPage(new PDPage());
-                doc.save(newFileName);
-                doc.close();
-            } catch (SecurityException e) {
-                System.out.println("Impossible de créer le répertoire ...");
-            }
+            directory.mkdir();
         }
-            
-        PDFmerger.setDestinationFileName("../DossierBilans/");
-        PDFmerger.mergeDocuments();
+        
+        newFilePath = "DossierBilans/" + newFilePath;           
+        PDFmerger.setDestinationFileName(newFilePath);
+        PDFmerger.mergeDocuments(MemoryUsageSetting.setupMainMemoryOnly());
     }
 }
