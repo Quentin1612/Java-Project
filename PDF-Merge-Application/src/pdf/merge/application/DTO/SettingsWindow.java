@@ -7,6 +7,7 @@ package pdf.merge.application.DTO;
 
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
+import pdf.merge.application.DAL.PropertiesModel;
 
 /**
  *
@@ -19,6 +20,8 @@ public class SettingsWindow extends javax.swing.JFrame {
     
     private Boolean headerInputEnabled = false;
     private Boolean footerInputEnabled = false;
+    
+    private PropertiesModel model = new PropertiesModel();
 
     /**
      * Creates new form PreferencesWindow
@@ -31,6 +34,7 @@ public class SettingsWindow extends javax.swing.JFrame {
         this.setLocationRelativeTo(null);
         SetHeaderContent.setEnabled(false);
         SetFooterContent.setEnabled(false);
+        FilePath.setText(model.getFilePath());
         this.setVisible(true);
     }
 
@@ -74,6 +78,11 @@ public class SettingsWindow extends javax.swing.JFrame {
         });
 
         SetHeaderContent.setEnabled(false);
+        SetHeaderContent.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                SetHeaderContentActionPerformed(evt);
+            }
+        });
 
         SetHeaderLabel.setText("Contenu de l'en-tête :");
 
@@ -186,13 +195,17 @@ public class SettingsWindow extends javax.swing.JFrame {
 
     private void AddFooterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AddFooterActionPerformed
         if(this.footerInputEnabled == false) {
-            SetHeaderContent.setEnabled(true);
+            SetFooterContent.setEnabled(true);
             this.footerInputEnabled = true;
         } else {
-            SetHeaderContent.setEnabled(false);
+            SetFooterContent.setEnabled(false);
             this.footerInputEnabled = false;
         }
     }//GEN-LAST:event_AddFooterActionPerformed
+
+    private void SetHeaderContentActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SetHeaderContentActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_SetHeaderContentActionPerformed
 
     /**
      * @param args the command line arguments
