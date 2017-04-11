@@ -7,13 +7,10 @@
 package pdf.merge.application.DTO;
 
 import pdf.merge.application.BLL.FileFinder;
-import pdf.merge.application.BLL.MergeFile;
 
 import javax.swing.JFrame;
-import javax.swing.JTextArea;
 import javax.swing.JFileChooser;
 import java.io.File;
-import java.io.FileNotFoundException;
 
 /**
  *
@@ -90,7 +87,7 @@ public class MainWindow extends javax.swing.JFrame {
 
         Preferences.setText("Fichier");
 
-        OpenFolder.setText("Ouvrir un dossier");
+        OpenFolder.setText("Sélectionner un dossier");
         OpenFolder.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 OpenFolderActionPerformed(evt);
@@ -99,7 +96,7 @@ public class MainWindow extends javax.swing.JFrame {
         Preferences.add(OpenFolder);
         OpenFolder.getAccessibleContext().setAccessibleDescription("");
 
-        Settings.setText("Settings");
+        Settings.setText("Réglages");
         Settings.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 SettingsActionPerformed(evt);

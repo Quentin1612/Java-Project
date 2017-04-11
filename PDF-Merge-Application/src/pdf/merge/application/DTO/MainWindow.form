@@ -45,7 +45,7 @@
           <SubComponents>
             <MenuItem class="javax.swing.JMenuItem" name="OpenFolder">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Ouvrir un dossier"/>
+                <Property name="text" type="java.lang.String" value="S&#xe9;lectionner un dossier"/>
               </Properties>
               <AccessibilityProperties>
                 <Property name="AccessibleContext.accessibleDescription" type="java.lang.String" value=""/>
@@ -56,7 +56,7 @@
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="Settings">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Settings"/>
+                <Property name="text" type="java.lang.String" value="R&#xe9;glages"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="SettingsActionPerformed"/>
