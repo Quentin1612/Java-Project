@@ -18,8 +18,8 @@ public class SettingsWindow extends javax.swing.JFrame {
     private String windowTitle = "Réglages";
     private String chooserDialogTitle = "Sélectionnez un dossier";
     
-    private Boolean headerInputEnabled = false;
-    private Boolean footerInputEnabled = false;
+    String headerIsActivated = new PropertiesModel().getHeaderIsActivated();
+    String footerIsActivated = new PropertiesModel().getFooterIsActivated();
     
     private PropertiesModel model = new PropertiesModel();
 
@@ -32,9 +32,29 @@ public class SettingsWindow extends javax.swing.JFrame {
         this.setSize(750, 500);
         this.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
         this.setLocationRelativeTo(null);
-        SetHeaderContent.setEnabled(false);
-        SetFooterContent.setEnabled(false);
         FilePath.setText(model.getFilePath());
+        
+        if(model.getHeaderIsActivated().equals("true")) {
+            AddHeader.setSelected(true);
+            SetHeaderContent.setEnabled(true);
+        } else {
+            AddHeader.setSelected(false);
+            SetHeaderContent.setEnabled(false);
+        }
+        if(model.getFooterIsActivated().equals("true")) {
+            AddFooter.setSelected(true);
+            SetFooterContent.setEnabled(true);
+        } else {
+            AddFooter.setSelected(false);
+            SetFooterContent.setEnabled(false);
+        }
+        
+        if(!model.getHeaderContent().equals("null")) {
+            SetHeaderContent.setText(model.getHeaderContent());
+        }
+        if(!model.getFooterContent().equals("null")) {
+            SetFooterContent.setText(model.getFooterContent());
+        }
         this.setVisible(true);
     }
 
@@ -59,6 +79,7 @@ public class SettingsWindow extends javax.swing.JFrame {
         FilesPathTitle = new javax.swing.JLabel();
         ChangeFilePath = new javax.swing.JButton();
         RecordSettings = new javax.swing.JButton();
+        CancelBtn = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setType(java.awt.Window.Type.UTILITY);
@@ -102,6 +123,18 @@ public class SettingsWindow extends javax.swing.JFrame {
         });
 
         RecordSettings.setText("Enregistrer les modifications");
+        RecordSettings.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                RecordSettingsActionPerformed(evt);
+            }
+        });
+
+        CancelBtn.setText("Annuler");
+        CancelBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                CancelBtnActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -114,8 +147,14 @@ public class SettingsWindow extends javax.swing.JFrame {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(FilePath)
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addComponent(ChangeFilePath)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 244, Short.MAX_VALUE)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(ChangeFilePath)
+                                        .addGap(0, 238, Short.MAX_VALUE))
+                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                        .addGap(0, 0, Short.MAX_VALUE)
+                                        .addComponent(CancelBtn)))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(RecordSettings))))
                     .addGroup(layout.createSequentialGroup()
                         .addContainerGap()
@@ -164,7 +203,9 @@ public class SettingsWindow extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(SetFooterContent, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 31, Short.MAX_VALUE)
-                .addComponent(RecordSettings)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(RecordSettings)
+                    .addComponent(CancelBtn))
                 .addContainerGap())
         );
 
@@ -184,28 +225,39 @@ public class SettingsWindow extends javax.swing.JFrame {
     }//GEN-LAST:event_ChangeFilePathActionPerformed
 
     private void AddHeaderActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AddHeaderActionPerformed
-        if(this.headerInputEnabled == false) {
-            SetHeaderContent.setEnabled(true);
-            this.headerInputEnabled = true;
-        } else {
+        if(headerIsActivated.equals("true")) {
             SetHeaderContent.setEnabled(false);
-            this.headerInputEnabled = false;
+            headerIsActivated = "false";
+        } else {
+            SetHeaderContent.setEnabled(true);
+            headerIsActivated = "true";
         }
     }//GEN-LAST:event_AddHeaderActionPerformed
 
     private void AddFooterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AddFooterActionPerformed
-        if(this.footerInputEnabled == false) {
-            SetFooterContent.setEnabled(true);
-            this.footerInputEnabled = true;
-        } else {
+        if(footerIsActivated.equals("true")) {
             SetFooterContent.setEnabled(false);
-            this.footerInputEnabled = false;
+            footerIsActivated = "false";
+        } else {
+            SetFooterContent.setEnabled(true);
+            footerIsActivated = "true";
         }
     }//GEN-LAST:event_AddFooterActionPerformed
 
     private void SetHeaderContentActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SetHeaderContentActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_SetHeaderContentActionPerformed
+
+    private void CancelBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CancelBtnActionPerformed
+        this.setVisible(false);
+    }//GEN-LAST:event_CancelBtnActionPerformed
+
+    private void RecordSettingsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RecordSettingsActionPerformed
+        model.setProperties(FilePath.getText(), AddHeader.isSelected(), AddFooter.isSelected(), SetHeaderContent.getText(), SetFooterContent.getText());
+        System.out.println("add header : " + AddHeader.isSelected());
+        System.out.println("add footer : " + AddFooter.isSelected());
+        this.setVisible(false);
+    }//GEN-LAST:event_RecordSettingsActionPerformed
 
     /**
      * @param args the command line arguments
@@ -246,6 +298,7 @@ public class SettingsWindow extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JRadioButton AddFooter;
     private javax.swing.JRadioButton AddHeader;
+    private javax.swing.JButton CancelBtn;
     private javax.swing.JButton ChangeFilePath;
     private javax.swing.JTextField FilePath;
     private javax.swing.JLabel FilesPathTitle;
