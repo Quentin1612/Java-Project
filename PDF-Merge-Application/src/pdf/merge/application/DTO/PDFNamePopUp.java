@@ -24,8 +24,6 @@ public class PDFNamePopUp extends JDialog {
         JOptionPane fileNamePopUp = new JOptionPane();
         String answer = fileNamePopUp.showInputDialog(null, popUpTitle, "", JOptionPane.QUESTION_MESSAGE);
         
-        System.out.println(answer);
-        
         // appel de la méthode de fusion des PDF
         MergeFile newFile = new MergeFile();
         newFile.mergeFiles(absolutePath, answer, fileList);
