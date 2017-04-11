@@ -5,7 +5,14 @@
  */
 package pdf.merge.application;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.Properties;
 import pdf.merge.application.DTO.MainWindow;
+import pdf.merge.application.DAL.ConfigProperties;
 
 /**
  * 
@@ -17,7 +24,37 @@ public class PDFMergeApplication {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-       MainWindow fenetre = new MainWindow();
+        ConfigProperties configProperties = new ConfigProperties();
+        Properties prop = new Properties();
+        String fileName = "DossierProperties/config.properties";
+        File myConfig = new File(fileName);
+        FileOutputStream output = null;
+        
+        // on vérifie si le dossier de config a été créé
+        if(!configProperties.isFolderCreated()) {
+            configProperties.createFolder();
+            try {
+                // création du fichier de config
+                myConfig.createNewFile();
+                
+                output = new FileOutputStream(myConfig, false);
+                
+                String folderPath = System.getProperty("user.dir") + fileName;
+                
+                // on crée les properties du fichier
+                prop.setProperty("generatedPDFFilePath", folderPath);
+                prop.setProperty("isTextOnTopActivated", "false");
+                prop.setProperty("isTextOnBottomActivated", "false");
+                prop.setProperty("headerContent", "null");
+                prop.setProperty("footerContent", "null");
+                
+                prop.store(output, null);
+            } catch (IOException e) {
+                System.out.println("Erreur : " + e);
+            }
+        }
+        
+        // ouverture de la fenêtre principale
+        MainWindow fenetre = new MainWindow();
     }
-    
 }
