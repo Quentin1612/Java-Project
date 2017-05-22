@@ -39,7 +39,7 @@ public class PropertiesModel {
             // enregistrement des properties dans le fichier
             prop.store(output, null);
         } catch (IOException e) {
-            System.out.println("Erreur : " + e);
+            System.out.println("Erreur : " + e.getMessage());
         }
     }
     
@@ -50,7 +50,7 @@ public class PropertiesModel {
             prop.load(file);
             return prop.getProperty("generatedPDFFilePath");
         } catch (IOException e) {
-            System.out.println("Erreur : " + e);
+            System.out.println("Erreur : " + e.getMessage());
             return null;
         }
     }
@@ -62,7 +62,7 @@ public class PropertiesModel {
             prop.load(file);
             return prop.getProperty("isTextOnTopActivated");
         } catch (IOException e) {
-            System.out.println("Erreur : " + e);
+            System.out.println("Erreur : " + e.getMessage());
             return null;
         }
     }
@@ -74,7 +74,7 @@ public class PropertiesModel {
             prop.load(file);
             return prop.getProperty("isTextOnBottomActivated");
         } catch (IOException e) {
-            System.out.println("Erreur : " + e);
+            System.out.println("Erreur : " + e.getMessage());
             return null;
         }
     }
@@ -86,7 +86,7 @@ public class PropertiesModel {
             prop.load(file);
             return prop.getProperty("headerContent");
         } catch (IOException e) {
-            System.out.println("Erreur : " + e);
+            System.out.println("Erreur : " + e.getMessage());
             return null;
         }
     }
@@ -98,7 +98,7 @@ public class PropertiesModel {
             prop.load(file);
             return prop.getProperty("footerContent");
         } catch (IOException e) {
-            System.out.println("Erreur : " + e);
+            System.out.println("Erreur : " + e.getMessage());
             return null;
         }
     }

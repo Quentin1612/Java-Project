@@ -6,6 +6,7 @@
 package pdf.merge.application;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.Properties;
@@ -21,7 +22,14 @@ public class PDFMergeApplication {
     /**
      * @param args the command line arguments
      */
-    public static void main(String[] args) {
+    public static void main(String[] args) throws FileNotFoundException {
+        // si le répertoire n'a pas été créé
+        File directory = new File("DossierBilans");
+        if(!directory.exists()) {
+            // on crée le répertoire
+            directory.mkdir();
+        }
+        
         // instanciation du fichier de config
         ConfigProperties configProperties = new ConfigProperties();
         Properties prop = new Properties();
@@ -29,6 +37,8 @@ public class PDFMergeApplication {
         String fileName = "DossierProperties/config.properties";
         File myConfig = new File(fileName);
         FileOutputStream output = null;
+        
+        String folderPath = System.getProperty("user.dir") + fileName;
         
         // on vérifie si le dossier de config a été créé
         if(!configProperties.isFolderCreated()) {
@@ -39,10 +49,8 @@ public class PDFMergeApplication {
                 
                 output = new FileOutputStream(myConfig, false);
                 
-                String folderPath = System.getProperty("user.dir") + fileName;
-                
                 // on crée les properties du fichier
-                prop.setProperty("generatedPDFFilePath", folderPath);
+                prop.setProperty("generatedPDFFilePath", System.getProperty("user.dir") + "\\DossierBilans");
                 prop.setProperty("isTextOnTopActivated", "false");
                 prop.setProperty("isTextOnBottomActivated", "false");
                 prop.setProperty("headerContent", "null");
