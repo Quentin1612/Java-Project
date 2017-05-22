@@ -21,6 +21,7 @@ public class PDFNamePopUp extends JDialog {
     private String popUpTitle = "Saisissez le nom du fichier à générer :";
     
     public PDFNamePopUp(String absolutePath, File[] fileList) throws FileNotFoundException, IOException {
+        // ouverture de la pop-up
         JOptionPane fileNamePopUp = new JOptionPane();
         String answer = fileNamePopUp.showInputDialog(null, popUpTitle, "", JOptionPane.QUESTION_MESSAGE);
         

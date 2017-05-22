@@ -28,12 +28,15 @@ public class SettingsWindow extends javax.swing.JFrame {
      */
     public SettingsWindow() {
         initComponents();
+        // initialisation des paramètres de la fenêtre
         this.setTitle(windowTitle);
         this.setSize(750, 500);
         this.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
         this.setLocationRelativeTo(null);
         FilePath.setText(model.getFilePath());
         
+        // conditions de vérification des options activées dans le fichier de config
+        // permet de réafficher les champs saisis et les options cochées
         if(model.getHeaderIsActivated().equals("true")) {
             AddHeader.setSelected(true);
             SetHeaderContent.setEnabled(true);
@@ -55,6 +58,7 @@ public class SettingsWindow extends javax.swing.JFrame {
         if(!model.getFooterContent().equals("null")) {
             SetFooterContent.setText(model.getFooterContent());
         }
+        // affichage de la pop-up
         this.setVisible(true);
     }
 
@@ -213,18 +217,21 @@ public class SettingsWindow extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void ChangeFilePathActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ChangeFilePathActionPerformed
+        // ouverture d'un explorateur de fichiers + configuration de ses attributs
         JFileChooser chooser = new JFileChooser();
         chooser.setCurrentDirectory(new java.io.File("Desktop"));
         chooser.setDialogTitle(chooserDialogTitle);
         chooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
         chooser.setAcceptAllFileFilterUsed(false);
         
+        // si un répertoire a été sélectionné
         if (chooser.showOpenDialog(null) == JFileChooser.APPROVE_OPTION) {
             FilePath.setText(chooser.getSelectedFile().getAbsolutePath());
         }
     }//GEN-LAST:event_ChangeFilePathActionPerformed
 
     private void AddHeaderActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AddHeaderActionPerformed
+        // code pour la gestion de l'affichage - des boutons de type Checkbox ...
         if(headerIsActivated.equals("true")) {
             SetHeaderContent.setEnabled(false);
             headerIsActivated = "false";
@@ -235,6 +242,7 @@ public class SettingsWindow extends javax.swing.JFrame {
     }//GEN-LAST:event_AddHeaderActionPerformed
 
     private void AddFooterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AddFooterActionPerformed
+        // code pour la gestion de l'affichage - des boutons de type Checkbox ...
         if(footerIsActivated.equals("true")) {
             SetFooterContent.setEnabled(false);
             footerIsActivated = "false";
@@ -253,9 +261,9 @@ public class SettingsWindow extends javax.swing.JFrame {
     }//GEN-LAST:event_CancelBtnActionPerformed
 
     private void RecordSettingsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RecordSettingsActionPerformed
+        // enregistrement des paramètres
         model.setProperties(FilePath.getText(), AddHeader.isSelected(), AddFooter.isSelected(), SetHeaderContent.getText(), SetFooterContent.getText());
-        System.out.println("add header : " + AddHeader.isSelected());
-        System.out.println("add footer : " + AddFooter.isSelected());
+        // la fenêtre n'est plus affichée
         this.setVisible(false);
     }//GEN-LAST:event_RecordSettingsActionPerformed
 
@@ -290,6 +298,7 @@ public class SettingsWindow extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
+                // affichage de la fenêtre de settings
                 new SettingsWindow().setVisible(true);
             }
         });

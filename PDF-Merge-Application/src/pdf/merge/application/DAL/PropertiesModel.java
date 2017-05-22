@@ -24,15 +24,19 @@ public class PropertiesModel {
     
     public void setProperties(String filePath, Boolean headerIsActivated, Boolean footerIsActivated, String headerContent, String footerContent) {
         try {
+            // récupération du fichier de config
             InputStream file = new FileInputStream(myConfig);
             output = new FileOutputStream(myConfig, false);
+            // chargement des properties
             prop.load(file);
             
+            // on ajoute les properties au fichier
             prop.setProperty("generatedPDFFilePath", filePath);
             prop.setProperty("isTextOnTopActivated", headerIsActivated.toString());
             prop.setProperty("isTextOnBottomActivated", footerIsActivated.toString());
             prop.setProperty("headerContent", headerContent);
             prop.setProperty("footerContent", footerContent);
+            // enregistrement des properties dans le fichier
             prop.store(output, null);
         } catch (IOException e) {
             System.out.println("Erreur : " + e);
@@ -41,6 +45,7 @@ public class PropertiesModel {
     
     public String getFilePath() {
         try {
+            // récupération du fichier de config
             InputStream file = new FileInputStream(myConfig);
             prop.load(file);
             return prop.getProperty("generatedPDFFilePath");
@@ -50,6 +55,7 @@ public class PropertiesModel {
         }
     }
     
+    // méthode qui vérifie si la fonctionnalité d'ajout d'un header est activé
     public String getHeaderIsActivated() {
         try {
             InputStream file = new FileInputStream(myConfig);
@@ -61,6 +67,7 @@ public class PropertiesModel {
         }
     }
     
+    // méthode qui vérifie si la fonctionnalité d'ajout d'un header est activé
     public String getFooterIsActivated() {
         try {
             InputStream file = new FileInputStream(myConfig);
@@ -72,6 +79,7 @@ public class PropertiesModel {
         }
     }
     
+    // méthode de récupération du contenu pour le Header
     public String getHeaderContent() {
         try {
             InputStream file = new FileInputStream(myConfig);
@@ -83,6 +91,7 @@ public class PropertiesModel {
         }
     }
     
+    // méthode de récupération du contenu du Footer
     public String getFooterContent() {
         try {
             InputStream file = new FileInputStream(myConfig);

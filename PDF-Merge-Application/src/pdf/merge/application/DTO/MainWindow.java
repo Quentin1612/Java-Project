@@ -30,11 +30,14 @@ public class MainWindow extends javax.swing.JFrame {
      */
     public MainWindow() {
         initComponents();
+        
+        // configuration de la fenêtre - taille / titre ...
         this.setTitle(windowTitle);
         this.setSize(750, 500);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setLocationRelativeTo(null);
         Editer.setEnabled(false);
+        // rend la fenêtre visible
         this.setVisible(true);
     }
 
@@ -157,15 +160,18 @@ public class MainWindow extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void OpenFolderActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_OpenFolderActionPerformed
+        // fonction d'affichage de l'explorateur de fichiers
         displayBrowserWindow();
     }//GEN-LAST:event_OpenFolderActionPerformed
 
     private void ExitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ExitActionPerformed
+        // méthode de fermeture de la fenêtre
         System.exit(0);
     }//GEN-LAST:event_ExitActionPerformed
 
     private void MergePDFActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MergePDFActionPerformed
         try {
+            // méthode d'affichage de la pop-up pour la saisie du nom du fichier à générer
             PDFNamePopUp namePopUp = new PDFNamePopUp(absolutePath, fileList);
         } catch (Exception e) {
             System.out.println("Impossible de fusionner les PDF avec l'erreur : " + e);
@@ -177,22 +183,28 @@ public class MainWindow extends javax.swing.JFrame {
     }//GEN-LAST:event_AideActionPerformed
 
     private void SettingsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SettingsActionPerformed
+        // ouverture de la fenêtre des paramètres
         SettingsWindow settings = new SettingsWindow();
     }//GEN-LAST:event_SettingsActionPerformed
     
     private void displayBrowserWindow() {
+        // méthode pour la configuration de l'xplorateur de fichiers - titre / répertoire d'arrivée ...
         JFileChooser chooser = new JFileChooser();
         chooser.setCurrentDirectory(new java.io.File("Desktop"));
         chooser.setDialogTitle(chooserDialogTitle);
         chooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
         chooser.setAcceptAllFileFilterUsed(false);
         
+        // si un répertoire a été sélectionné
         if (chooser.showOpenDialog(null) == JFileChooser.APPROVE_OPTION) {
+            // récupération du chemin
             absolutePath = chooser.getSelectedFile().getAbsolutePath();
             fileList = FileFinder.find(absolutePath);
+            // on écrit dans le TextView la liste des fichiers contenus dans le répertoire sélectionné
             printFileNames(fileList);
             Editer.setEnabled(true);
         } else {
+            // on efface le contenu du TextView et on affiche un message d'erreur
             listContainer.setText("");
             listContainer.append(noFolderSelectedMessage);
         }
@@ -201,10 +213,13 @@ public class MainWindow extends javax.swing.JFrame {
     private void printFileNames(File[] fileList) {
         String fileNames = "";
         
+        // on boucle sur tous les éléments de la liste
         for (int i = 0; i < fileList.length; i++) {
+            // on ajoute le nom de chaque fichier à un String
             fileNames += fileList[i].getName() + "\n";
         }
         
+        // écriture de la liste dans le TextView
         listContainer.setText("");
         listContainer.append(fileNames);
     }

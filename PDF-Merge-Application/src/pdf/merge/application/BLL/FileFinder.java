@@ -14,7 +14,9 @@ import java.io.FilenameFilter;
  */
 public class FileFinder {
     public static File[] find (String path) {
+        // récupération du fichier grâce au path
         File dir = new File(path);
+        // on retourne la liste de fichiers pdf trouvés
         return dir.listFiles(new FilenameFilter() {
             public boolean accept(File dir, String filename) {
                 return filename.endsWith(".pdf");

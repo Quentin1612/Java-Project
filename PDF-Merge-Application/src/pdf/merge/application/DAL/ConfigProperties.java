@@ -12,9 +12,9 @@ import java.io.File;
  * @author Quentin
  */
 public class ConfigProperties {
-    
     private File directory = new File(new String("DossierProperties"));
     
+    // on vérifie si le répertoire des properties existe
     public boolean isFolderCreated() {
         if(directory.exists()) {
             return true;
@@ -23,6 +23,7 @@ public class ConfigProperties {
         }
     }
     
+    // méthode de création du répertoire des properties
     public void createFolder() {
         directory.mkdir();
     }
